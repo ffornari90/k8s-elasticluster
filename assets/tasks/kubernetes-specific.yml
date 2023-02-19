@@ -1,0 +1,10 @@
+  when: 'kubernetes_version == "latest"'
+
+- name: Install packages (specific version)
+  yum:
+    name:
+      - kubelet-{{ kubernetes_version }}
+      - kubeadm-{{ kubernetes_version }}
+      - kubectl-{{ kubernetes_version }}
+    state: '{{ pkg_install_state }}'
+  when: 'kubernetes_version != "latest"'
