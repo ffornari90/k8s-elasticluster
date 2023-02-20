@@ -1,0 +1,5 @@
+
+- name: Initialize CentOS locales
+  command: |
+    localedef -i en_US -f UTF-8 C.UTF-8
+  when: is_centos

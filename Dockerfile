@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 ENV PYTHONPATH=/elasticluster-install/lib/python3.8/site-packages
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/elasticluster-install/bin
 COPY ./assets/tasks/kubernetes-specific.yml /
+COPY ./assets/tasks/set-locales.yml /
 COPY ./assets/elasticluster/config /
 RUN apt update && apt install -y git python3 python3-pip gettext-base \
  && pip3 install ansible==2.9.27 Babel pytz \
@@ -29,7 +30,8 @@ openebs openebs/openebs --version 3.3.1 --namespace openebs --kubeconfig /etc/ku
  && sed -i 's/={{ kubernetes_version }}/="{{ kubernetes_version }}0"/g' \
  /elasticluster/elasticluster/share/playbooks/roles/kubernetes-common/tasks/Debian.yml \
  && sed -i 's/kubernetes_default_networking: calico/kubernetes_default_networking: flannel/g' \
- /elasticluster/elasticluster/share/playbooks/roles/kubernetes-master/defaults/main.yml \ 
+ /elasticluster/elasticluster/share/playbooks/roles/kubernetes-master/defaults/main.yml \
+ && cat /set-locales.yml >> /elasticluster/elasticluster/share/playbooks/roles/kubernetes-master/tasks/main.yml \
  && mkdir -p ../elasticluster-install/lib/python3.8/site-packages \
  && python3 setup.py install --prefix=../elasticluster-install \
  && groupadd -g 1000 user \
