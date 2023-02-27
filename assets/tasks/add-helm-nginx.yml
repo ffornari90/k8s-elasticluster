@@ -1,0 +1,5 @@
+
+- name: Add nginx repo for helm
+  command: |
+    chmod 600 /home/centos/.kube/config && helm repo add nginx-stable https://helm.nginx.com/stable && helm repo update
+  when: is_centos
