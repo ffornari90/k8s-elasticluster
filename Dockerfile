@@ -30,8 +30,6 @@ openebs openebs/openebs --version 3.3.1 --namespace openebs --kubeconfig /etc/ku
  /elasticluster/elasticluster/share/playbooks/roles/kubernetes-common/tasks/RedHat.yml \
  && sed -i 's/={{ kubernetes_version }}/="{{ kubernetes_version }}0"/g' \
  /elasticluster/elasticluster/share/playbooks/roles/kubernetes-common/tasks/Debian.yml \
- #&& sed -i 's/kubernetes_default_networking: calico/kubernetes_default_networking: flannel/g' \
- #/elasticluster/elasticluster/share/playbooks/roles/kubernetes-master/defaults/main.yml \
  && cat /set-locales.yml >> /elasticluster/elasticluster/share/playbooks/roles/kubernetes-master/tasks/main.yml \
  && cat /add-helm-repos.yml >> /elasticluster/elasticluster/share/playbooks/roles/kubernetes-apps/tasks/helm.yml \
  && mkdir -p ../elasticluster-install/lib/python3.8/site-packages \
