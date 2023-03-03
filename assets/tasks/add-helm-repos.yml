@@ -1,20 +1,32 @@
 
 - name: Add nginx repo for helm
+  become: true
+  become_method: su
+  become_user: centos
   command: |
     helm repo add nginx-stable https://helm.nginx.com/stable
   when: is_centos
 
 - name: Add prometheus repo for helm
+  become: true
+  become_method: su
+  become_user: centos
   command: |
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   when: is_centos
 
 - name: Add grafana repo for helm
+  become: true
+  become_method: su
+  become_user: centos
   command: |
     helm repo add grafana https://grafana.github.io/helm-charts
   when: is_centos
 
 - name: Update repos for helm
+  become: true
+  become_method: su
+  become_user: centos
   command: |
     helm repo update
   when: is_centos
