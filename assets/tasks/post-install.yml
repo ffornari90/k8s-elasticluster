@@ -1,0 +1,19 @@
+
+- name: Initialize CentOS locales
+  command: |
+    localedef -i en_US -f UTF-8 C.UTF-8
+  when: is_centos
+
+- name: Fix permissions on kubeconfig file
+  file:
+    path: /home/centos/.kube/config
+    mode: '0600'
+  when: is_centos
+
+- name: Install calicoctl package
+  shell: curl -L https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64 -o calicoctl && chmod +x calicoctl && mv calicoctl /usr/local/bin/
+
+- name: Install nmap package
+  yum:
+    name: nmap
+    state: present
